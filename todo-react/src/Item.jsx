@@ -1,4 +1,4 @@
-export default function Item({item, toggle}){
+export default function Item({item, toggle, remove}){
       return (
             <li>
                   { item.done ? (
@@ -7,7 +7,7 @@ export default function Item({item, toggle}){
                         <button onClick={() => {toggle(item.id)}}>Undone</button>
                   )}
                   {item.name}
-                  <button>Delete</button>
+                  <button onClick={() => remove(item.id)}>Delete</button>
             </li>
       )
 }
