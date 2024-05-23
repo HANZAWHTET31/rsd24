@@ -1,5 +1,8 @@
 import { useState, useRef } from "react";
 
+import { Box, List } from "@mui/material";
+import { List as  ListIcon } from "@mui/icons-material";
+
 import Item from "./Item";
 
 export default function App() {
@@ -29,40 +32,61 @@ export default function App() {
       };
 
       return (
-            <div>
-                  <h1>WELCOME TO REACT</h1>
+		<Box>
+			<h1>WELCOME TO REACT</h1>
 
-                  <form onSubmit={(e) => {
-                        e.preventDefault();
-                        const name = inputRef.current.value;
+			<Box sx={{ mx: "auto", maxWidth: "md", mt: 4}}>
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						const name = inputRef.current.value;
 
-                        if(!name){
-                              return false;
-                        }else{
-                              add(name);
-                              inputRef.current.value = "";
-                              inputRef.current.focus();
-                        }
-                  }}>
-                        <input type="text" ref={inputRef} />
-                        <input type="submit" />
-                  </form>
+						if (!name) {
+							return false;
+						} else {
+							add(name);
+							inputRef.current.value = "";
+							inputRef.current.focus();
+						}
+					}}>
+					<input
+						type="text"
+						ref={inputRef}
+                                    style={{width: 500}}
+					/>
+					<input type="submit" />
+				</form>
 
-                  <ul>
-                        {data.filter(item => !item.done).map(item => {
-                              return (
-                                    <Item key={item.id} item={item} toggle={toggle} remove={remove} />
-                              )
-                        })}
-                  </ul>
-                  <hr />
-                  <u>
-                        {data.filter(item => item.done).map(item => {
-                              return (
-                                    <Item key={item.id} item={item} toggle={toggle} remove={remove} />
-                              )
-                        })}
-                  </u>
-            </div>
-      );
+				<List>
+					{data
+						.filter((item) => !item.done)
+						.map((item) => {
+							return (
+								<Item
+									key={item.id}
+									item={item}
+									toggle={toggle}
+									remove={remove}
+								/>
+							);
+						})}
+				</List>
+				<hr />
+				<List>
+					{data
+						.filter((item) => item.done)
+						.map((item) => {
+							return (
+								<Item
+									key={item.id}
+									item={item}
+									toggle={toggle}
+									remove={remove}
+								/>
+							);
+						})}
+				</List>
+			</Box>
+		</Box>
+	);
 }
